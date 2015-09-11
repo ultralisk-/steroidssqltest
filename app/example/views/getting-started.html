@@ -1,0 +1,31 @@
+<div class="padding">
+
+  <super-navbar>
+    <super-navbar-title>
+      Welcome to Supersonic!
+    </super-navbar-title>
+  </super-navbar>
+
+
+  <button class="button button-block button-positive icon-left super-wand" onclick="testDatabase()">Using the AppGyver Scanner</button>
+</div>
+
+<script>
+function testDatabase(){
+  var db = window.sqlitePlugin.openDatabase({name: "test.db"});
+  
+  db.executeSql('DROP TABLE IF EXISTS DEMO', [], sqlSuccess, sqlError);
+  db.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)', [], sqlSuccess, sqlError)
+  db.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")', [], sqlSuccess, sqlError)
+  db.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")', [], sqlSuccess, sqlError)
+  
+}
+
+function sqlSuccess(str){
+    supersonic.logger.info(str);
+}
+
+function sqlError(str){
+  supersonic.logger.error(str);
+}
+</script>
